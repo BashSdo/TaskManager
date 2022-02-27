@@ -43,6 +43,10 @@ namespace TaskManager
                     listBox3.Items.Add(record);
                 }
             }
+
+            comboBox1.Items.Add(new User("Добавить пользователя"));
+            comboBox1.Items.Add(new User("Администратор"));
+            comboBox1.SelectedIndex = 1;
         }
 
         /// <summary>
@@ -213,6 +217,26 @@ namespace TaskManager
 
             var view = new TaskView((Record)SelectedList.SelectedItem);
             view.ShowDialog();
+        }
+
+        /// <summary>
+        /// Обработчик изменения текущего пользователя
+        /// </summary>
+        /// <param name="sender">Список пользователей</param>
+        /// <param name="e">Событие об изменении текущего пользователя</param>
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == 0)
+            {
+                var newUser = new UserView();
+                if (newUser.ShowDialog() == DialogResult.OK)
+                {
+                    comboBox1.Items.Add(newUser.User);
+                    comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+                }
+
+                return;
+            }
         }
 
         /// <summary>
